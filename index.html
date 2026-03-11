@@ -1,0 +1,1059 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aaron Roodhart | Portfolio</title>
+    
+    <!-- Google Fonts: Inter (Sans) and Playfair Display (Serif) to match Wealthsimple's Neo-classical typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['"Playfair Display"', 'serif'],
+                    },
+                    colors: {
+                        ws: {
+                            black: '#1A1A1A',
+                            pureBlack: '#000000',
+                            white: '#FFFFFF',
+                            bg: '#F9F9F8', // Warm sand background
+                            gray: '#F0EFEA', // Slightly darker warm gray
+                            border: '#E8E7E2',
+                            textMuted: '#5A5A5A',
+                            gold: '#BFA054'
+                        },
+                        filter: {
+                            work: '#E8F0E6', // sage green
+                            workTxt: '#2D5135',
+                            entre: '#F3EFE6', // warm sand
+                            entreTxt: '#7A602B',
+                            side: '#EAEAF2', // soft blue/lavender
+                            sideTxt: '#434371',
+                            extra: '#FDF2E9', // soft peach
+                            extraTxt: '#9C4A1A',
+                            awards: '#FFF8E7', // soft gold/yellow
+                            awardsTxt: '#9E721D'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Custom Styles for Animations & Layouts -->
+    <style>
+        /* Smooth Accordion utilizing CSS Grid */
+        .accordion-content {
+            display: grid;
+            grid-template-rows: 0fr;
+            transition: grid-template-rows 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
+                        opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                        margin 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 0;
+        }
+        .accordion-content.open {
+            grid-template-rows: 1fr;
+            opacity: 1;
+            margin-top: 1rem;
+        }
+        .accordion-inner {
+            overflow: hidden;
+        }
+
+        /* Hide Scrollbar for Horizontal Galleries */
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* Image placeholder fallback styling */
+        img {
+            background-color: #F0EFEA;
+            color: transparent;
+        }
+
+        /* Smooth Scroll Reveal Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .delay-100 { transition-delay: 100ms; }
+        .delay-200 { transition-delay: 200ms; }
+        .delay-300 { transition-delay: 300ms; }
+
+        /* Project card images: crop to fill square frame */
+        .project-card img[alt$="Thumbnail"] {
+            object-fit: cover;
+        }
+
+        /* Dynamic Gradient Animations */
+        @keyframes blob-left {
+            0% { transform: translate(0px, 0px) scale(1); }
+            33% { transform: translate(40px, -50px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.9); }
+            100% { transform: translate(0px, 0px) scale(1); }
+        }
+        @keyframes blob-right {
+            0% { transform: translate(0px, 0px) scale(1); }
+            33% { transform: translate(-40px, 40px) scale(1.2); }
+            66% { transform: translate(30px, -30px) scale(0.8); }
+            100% { transform: translate(0px, 0px) scale(1); }
+        }
+        .animate-blob-left {
+            animation: blob-left 12s infinite alternate ease-in-out;
+        }
+        .animate-blob-right {
+            animation: blob-right 14s infinite alternate ease-in-out;
+        }
+    </style>
+</head>
+<body class="bg-ws-bg text-ws-black font-sans antialiased selection:bg-ws-gold selection:text-ws-white">
+
+    <!-- Navigation (Minimalist) -->
+    <nav class="w-full py-6 px-6 md:px-12 flex justify-between items-center fixed top-0 bg-ws-bg/95 backdrop-blur-md z-50 border-b border-ws-border">
+        <a href="#" class="font-bold text-xl tracking-tight text-ws-pureBlack hover:opacity-70 transition-opacity">Aaron Roodhart.</a>
+        <a href="#projects" class="text-[15px] font-semibold text-ws-pureBlack hover:text-ws-textMuted transition-colors">Work</a>
+    </nav>
+
+    <!-- Dynamic Hero Section -->
+    <header class="max-w-6xl mx-auto pt-48 pb-24 px-6 md:px-12">
+        <h1 id="dynamic-greeting" class="reveal font-serif text-[4rem] md:text-[6rem] lg:text-[7rem] font-medium tracking-tight mb-8 leading-[1] text-ws-pureBlack">
+            Good morning Wealthsimple, I'm Aaron 👋
+        </h1>
+        <p class="reveal delay-100 text-xl md:text-[22px] text-ws-textMuted leading-[1.4] max-w-3xl font-normal mb-10">
+            Below are a series of video testimonials of my proof of impact through Mars Apprentice, as well as an article that was written about the revival of the program. But keep reading, as there's some other pretty cool stuff below.
+        </p>
+        <nav class="reveal delay-200 flex flex-wrap gap-3" aria-label="Jump to section">
+            <a href="#mars-apprentice" class="inline-flex items-center gap-2 bg-ws-gold text-ws-pureBlack font-bold text-[15px] px-6 py-3 rounded-full hover:bg-ws-gold/90 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 shadow-md">
+                Mars Apprentice Impact
+            </a>
+            <a href="#projects" class="inline-flex items-center gap-2 bg-ws-pureBlack text-ws-white font-bold text-[15px] px-6 py-3 rounded-full hover:bg-ws-pureBlack/90 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 shadow-md">
+                Other Cool Stuff
+            </a>
+        </nav>
+    </header>
+
+    <!-- Media Panel (Mars Apprentice) -->
+    <section id="mars-apprentice" class="w-full bg-[#FCF5F5] border-y border-[#F7EBEB]">
+        <div class="max-w-7xl mx-auto py-32 px-6 md:px-12">
+            <h2 class="reveal font-serif text-4xl md:text-5xl font-medium mb-16 tracking-tight text-[#4A1111]">Mars Apprentice Impact</h2>
+            
+            <!-- Video Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10 mb-20">
+                <!-- Video Card 1 -->
+                <div class="reveal delay-100 group flex flex-col gap-5">
+                    <div class="aspect-video bg-[#F2E8E8] rounded-[24px] overflow-hidden border border-[#F7EBEB]">
+                        <iframe class="w-full h-full" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <div class="px-1 transition-transform duration-300 group-hover:translate-x-1">
+                        <h3 class="font-bold text-2xl tracking-tight mb-2 text-[#2A0505]">Impact Story One</h3>
+                        <p class="text-[#6B3A3A] text-[15px] leading-relaxed">A brief one to two sentence description highlighting the measurable impact and learnings from this specific apprentice milestone.</p>
+                    </div>
+                </div>
+
+                <!-- Video Card 2 -->
+                <div class="reveal delay-200 group flex flex-col gap-5">
+                    <div class="aspect-video bg-[#F2E8E8] rounded-[24px] overflow-hidden border border-[#F7EBEB]">
+                        <iframe class="w-full h-full" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <div class="px-1 transition-transform duration-300 group-hover:translate-x-1">
+                        <h3 class="font-bold text-2xl tracking-tight mb-2 text-[#2A0505]">Strategic Revival</h3>
+                        <p class="text-[#6B3A3A] text-[15px] leading-relaxed">Discussing the approach to bringing the program back and the strategic decisions that led to a successful relaunch.</p>
+                    </div>
+                </div>
+
+                <!-- Video Card 3 -->
+                <div class="reveal delay-300 group flex flex-col gap-5">
+                    <div class="aspect-video bg-[#F2E8E8] rounded-[24px] overflow-hidden border border-[#F7EBEB]">
+                        <iframe class="w-full h-full" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <div class="px-1 transition-transform duration-300 group-hover:translate-x-1">
+                        <h3 class="font-bold text-2xl tracking-tight mb-2 text-[#2A0505]">Future Outlook</h3>
+                        <p class="text-[#6B3A3A] text-[15px] leading-relaxed">Exploring the long-term vision of the program and how the foundational work paves the way for future cohorts.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Standalone Article Card -->
+            <div class="reveal delay-100 group bg-ws-white border border-[#EFE5E5] rounded-[32px] p-8 md:p-12 flex flex-col md:flex-row gap-10 items-stretch transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_12px_40px_-10px_rgba(74,17,17,0.08)]">
+                <div class="w-full md:w-5/12 min-h-[240px] aspect-[4/3] bg-[#F2E8E8] rounded-[24px] overflow-hidden shrink-0 flex items-center justify-center">
+                    <img src="assets/Article Shot.png" alt="Article Preview" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=800&q=80'" class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105">
+                </div>
+                <div class="w-full md:w-7/12 flex flex-col items-start justify-center min-w-0">
+                    <span class="inline-block bg-[#FDF2F2] text-[#9C2A2A] font-bold text-[11px] tracking-widest uppercase mb-4 px-3 py-1 rounded-full border border-[#F7EBEB]">Featured Article</span>
+                    <h3 class="font-serif text-2xl sm:text-3xl md:text-4xl font-medium tracking-tight mb-4 leading-[1.15] text-[#2A0505] break-words">The Lasting Impact of MARS Apprentice</h3>
+                    <p class="text-[#6B3A3A] mb-8 leading-relaxed text-[17px]">This article was written about the revival of MARS and the ultimate success story behind breathing new life into the program.</p>
+                    <a href="https://degroote.mcmaster.ca/articles/the-lasting-impact-of-mars-apprentice/" target="_blank" rel="noopener noreferrer" class="bg-ws-pureBlack text-ws-white px-8 py-4 rounded-full font-bold text-[15px] hover:bg-opacity-80 transition-all duration-200">
+                        Read Article
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Project Grid with Filters -->
+    <section id="projects" class="max-w-7xl mx-auto py-32 px-6 md:px-12">
+        <h2 class="reveal font-serif text-4xl md:text-5xl font-medium mb-12 tracking-tight text-ws-pureBlack">Other Cool Stuff</h2>
+        
+        <!-- Filter Controls Container with Tooltip -->
+        <div class="relative reveal delay-100 mb-12" id="filter-wrapper">
+            <!-- Filters -->
+            <div class="flex flex-wrap gap-2 relative z-10" id="filter-container">
+                <button onclick="filterSelection('all', this)" class="filter-btn bg-ws-pureBlack text-ws-white px-5 py-2.5 rounded-full text-[14px] font-semibold transition-all duration-200">
+                    All
+                </button>
+                <div class="relative">
+                    <!-- Tooltip above Entrepreneurship -->
+                    <div id="filter-tooltip" class="absolute -top-14 left-1/2 -translate-x-1/2 bg-ws-gold text-ws-pureBlack text-sm font-bold py-2.5 px-5 rounded-full opacity-0 transform translate-y-4 transition-all duration-500 pointer-events-none z-20 shadow-lg flex items-center gap-2 whitespace-nowrap">
+                        <span>Filter by what you're looking for</span>
+                        <svg class="w-4 h-4 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+                        <div class="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-3 h-3 bg-ws-gold transform rotate-45"></div>
+                    </div>
+                    <button onclick="filterSelection('entrepreneurship', this)" class="filter-btn bg-transparent text-ws-textMuted hover:bg-ws-gray px-5 py-2.5 rounded-full text-[14px] font-semibold transition-all duration-200">
+                        Entrepreneurship
+                    </button>
+                </div>
+                <button onclick="filterSelection('work', this)" class="filter-btn bg-transparent text-ws-textMuted hover:bg-ws-gray px-5 py-2.5 rounded-full text-[14px] font-semibold transition-all duration-200">
+                    Internships
+                </button>
+                <button onclick="filterSelection('side-quests', this)" class="filter-btn bg-transparent text-ws-textMuted hover:bg-ws-gray px-5 py-2.5 rounded-full text-[14px] font-semibold transition-all duration-200">
+                    Side Quests
+                </button>
+                <button onclick="filterSelection('extracurricular', this)" class="filter-btn bg-transparent text-ws-textMuted hover:bg-ws-gray px-5 py-2.5 rounded-full text-[14px] font-semibold transition-all duration-200">
+                    Extracurricular
+                </button>
+                <button onclick="filterSelection('awards', this)" class="filter-btn bg-transparent text-ws-textMuted hover:bg-ws-gray px-5 py-2.5 rounded-full text-[14px] font-semibold transition-all duration-200">
+                    Awards
+                </button>
+            </div>
+        </div>
+        
+        <!-- Project Grid (Custom Ordered) -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8" id="portfolio-grid">
+            
+            <!-- 1. DOT Stationery (Entrepreneurship) -->
+            <div class="project-card reveal delay-100 group flex flex-col bg-ws-white border border-ws-border rounded-[32px] transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_12px_40px_-10px_rgba(0,0,0,0.08)]" data-category="entrepreneurship">
+                <div class="cursor-pointer p-6 flex-grow" onclick="toggleAccordion(this)">
+                    <div class="aspect-square bg-ws-bg rounded-[20px] overflow-hidden mb-6 relative border border-ws-border">
+                        <span class="absolute top-3 left-3 bg-filter-entre text-filter-entreTxt text-[11px] font-bold px-3 py-1.5 rounded-full z-10">Entrepreneurship</span>
+                        <img src="assets/DOT.png" alt="DOT Stationery Thumbnail" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=800&q=80'" class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105">
+                    </div>
+                    <div class="flex justify-between items-start gap-4">
+                        <div>
+                            <h3 class="font-bold text-[22px] tracking-tight text-ws-pureBlack leading-[1.2]">Founder</h3>
+                            <p class="text-ws-textMuted text-[15px] mt-2 truncate max-w-[220px]">@ DOT Stationery</p>
+                        </div>
+                        <div class="shrink-0 pt-1">
+                            <svg class="chevron w-6 h-6 text-ws-pureBlack transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path></svg>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-content px-6">
+                    <div class="accordion-inner pb-8 pt-2">
+                        <div class="flex flex-wrap gap-2 mb-5">
+                            <span class="bg-ws-bg text-ws-pureBlack px-3 py-1.5 rounded-full text-[13px] font-semibold border border-ws-border">📦 400+ Pre-orders</span>
+                            <span class="bg-ws-bg text-ws-pureBlack px-3 py-1.5 rounded-full text-[13px] font-semibold border border-ws-border">🥈 2nd Place Startup Survivor</span>
+                        </div>
+                        <a href="https://www.dotbooks.ca/" target="_blank" class="text-ws-pureBlack underline underline-offset-4 decoration-2 decoration-ws-border hover:decoration-ws-pureBlack font-bold text-[15px] inline-flex items-center gap-1.5 mb-5 transition-colors">
+                            Visit DOT Books
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                        </a>
+                        <div class="text-[15px] text-ws-textMuted space-y-4 mb-2 leading-relaxed">
+                            <p>Developed an NFC-integrated paper notebook allowing users to connect digital memories to physical pages; currently fulfilling 400 pre-orders.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. Tutor With Aaron (Entrepreneurship) -->
+            <div class="project-card reveal delay-200 group flex flex-col bg-ws-white border border-ws-border rounded-[32px] transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_12px_40px_-10px_rgba(0,0,0,0.08)]" data-category="entrepreneurship">
+                <div class="cursor-pointer p-6 flex-grow" onclick="toggleAccordion(this)">
+                    <div class="aspect-square bg-ws-bg rounded-[20px] overflow-hidden mb-6 relative border border-ws-border">
+                        <span class="absolute top-3 left-3 bg-filter-entre text-filter-entreTxt text-[11px] font-bold px-3 py-1.5 rounded-full z-10">Entrepreneurship</span>
+                        <img src="assets/Tutor.png" alt="Tutor Thumbnail" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1434030216411-0b793f4b4273?auto=format&fit=crop&w=800&q=80'" class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105">
+                    </div>
+                    <div class="flex justify-between items-start gap-4">
+                        <div>
+                            <h3 class="font-bold text-[22px] tracking-tight text-ws-pureBlack leading-[1.2]">CEO and Founder</h3>
+                            <p class="text-ws-textMuted text-[15px] mt-2 truncate max-w-[220px]">@ Tutor With Aaron</p>
+                        </div>
+                        <div class="shrink-0 pt-1">
+                            <svg class="chevron w-6 h-6 text-ws-pureBlack transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path></svg>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-content px-6">
+                    <div class="accordion-inner pb-8 pt-2">
+                        <div class="text-[15px] text-ws-textMuted space-y-4 mb-2 leading-relaxed">
+                            <p>Founded a tutoring company integrating financial education and CBT principles into our services, supporting over 2,000 students across Canada.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. Konrad Group (Internships) -->
+            <div class="project-card reveal delay-300 group flex flex-col bg-ws-white border border-ws-border rounded-[32px] transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_12px_40px_-10px_rgba(0,0,0,0.08)]" data-category="work">
+                <div class="cursor-pointer p-6 flex-grow" onclick="toggleAccordion(this)">
+                    <div class="aspect-square bg-ws-bg rounded-[20px] overflow-hidden mb-6 relative border border-ws-border">
+                        <span class="absolute top-3 left-3 bg-filter-work text-filter-workTxt text-[11px] font-bold px-3 py-1.5 rounded-full z-10">Internships</span>
+                        <img src="assets/konrad-group-logo-vector.png" alt="Konrad Group Thumbnail" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80'" class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105">
+                    </div>
+                    <div class="flex justify-between items-start gap-4">
+                        <div class="shrink-0 pt-1">
+                            <h3 class="font-bold text-[22px] tracking-tight text-ws-pureBlack leading-[1.2]">Associate Consultant</h3>
+                            <p class="text-ws-textMuted text-[15px] mt-2 truncate max-w-[220px]">@ Konrad Group</p>
+                        </div>
+                        <div class="shrink-0 pt-1">
+                            <svg class="chevron w-6 h-6 text-ws-pureBlack transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path></svg>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-content px-6">
+                    <div class="accordion-inner pb-8 pt-2">
+                        <div class="text-[15px] text-ws-textMuted space-y-4 mb-2 leading-relaxed">
+                            <p>Led a team of 13 in a 4-month digital experience launch; automated project management tasks and streamlined delivery.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4. Bounce (Internships) -->
+            <div class="project-card reveal delay-100 group flex flex-col bg-ws-white border border-ws-border rounded-[32px] transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_12px_40px_-10px_rgba(0,0,0,0.08)]" data-category="work">
+                <div class="cursor-pointer p-6 flex-grow" onclick="toggleAccordion(this)">
+                    <div class="aspect-square bg-ws-bg rounded-[20px] overflow-hidden mb-6 relative border border-ws-border">
+                        <span class="absolute top-3 left-3 bg-filter-work text-filter-workTxt text-[11px] font-bold px-3 py-1.5 rounded-full z-10">Internships</span>
+                        <img src="assets/bouncedinc_logo.jpg" alt="Bounce Thumbnail" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80'" class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105">
+                    </div>
+                    <div class="flex justify-between items-start gap-4">
+                        <div>
+                            <h3 class="font-bold text-[22px] tracking-tight text-ws-pureBlack leading-[1.2]">Product Operations Intern</h3>
+                            <p class="text-ws-textMuted text-[15px] mt-2 truncate max-w-[220px]">@ Bounce</p>
+                        </div>
+                        <div class="shrink-0 pt-1">
+                            <svg class="chevron w-6 h-6 text-ws-pureBlack transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path></svg>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-content px-6">
+                    <div class="accordion-inner pb-8 pt-2">
+                        <div class="text-[15px] text-ws-textMuted space-y-4 mb-2 leading-relaxed">
+                            <p>Developed a full B2B data platform from the ground up through continuous user interviews and hypothesis-driven testing.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 5. Photography Business (Entrepreneurship) -->
+            <div class="project-card reveal delay-200 group flex flex-col bg-ws-white border border-ws-border rounded-[32px] transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_12px_40px_-10px_rgba(0,0,0,0.08)]" data-category="entrepreneurship">
+                <div class="cursor-pointer p-6 flex-grow" onclick="toggleAccordion(this)">
+                    <div class="aspect-square bg-ws-bg rounded-[20px] overflow-hidden mb-6 relative border border-ws-border">
+                        <span class="absolute top-3 left-3 bg-filter-entre text-filter-entreTxt text-[11px] font-bold px-3 py-1.5 rounded-full z-10">Entrepreneurship</span>
+                        <img src="assets/photography-main.png" alt="Photography Thumbnail" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=800&q=80'" class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105">
+                    </div>
+                    <div class="flex justify-between items-start gap-4">
+                        <div class="flex-1 min-w-0">
+                            <h3 class="font-bold text-[22px] tracking-tight text-ws-pureBlack leading-[1.2]">Photography Business</h3>
+                            <p class="text-ws-textMuted text-[15px] mt-2 truncate max-w-[220px]">Professional freelance service</p>
+                            <a href="https://aaronroodhart20.pixieset.com/aaronportfolio/" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="mt-3 inline-flex items-center gap-1.5 bg-ws-gold text-ws-pureBlack text-[12px] font-bold px-3.5 py-2 rounded-full hover:bg-ws-gold/90 transition-colors shadow-sm">
+                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                                View
+                            </a>
+                        </div>
+                        <div class="shrink-0 pt-1">
+                            <svg class="chevron w-6 h-6 text-ws-pureBlack transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path></svg>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-content px-6">
+                    <div class="accordion-inner pb-8 pt-2">
+                        <a href="https://aaronroodhart20.pixieset.com/aaronportfolio/" target="_blank" class="text-ws-pureBlack underline underline-offset-4 decoration-2 decoration-ws-border hover:decoration-ws-pureBlack font-bold text-[15px] inline-flex items-center gap-1.5 mb-5 transition-colors">
+                            View Portfolio
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                        </a>
+                        <div class="text-[15px] text-ws-textMuted space-y-4 mb-2 leading-relaxed">
+<p>Worked as a professional outdoor photographer for an assortment of outdoor companies and clients.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 6. Charlie Brown Christmas (Side Quests) -->
+            <div class="project-card reveal delay-300 group flex flex-col bg-ws-white border border-ws-border rounded-[32px] transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_12px_40px_-10px_rgba(0,0,0,0.08)]" data-category="side-quests">
+                <div class="cursor-pointer p-6 flex-grow" onclick="toggleAccordion(this)">
+                    <div class="aspect-square bg-ws-bg rounded-[20px] overflow-hidden mb-6 relative border border-ws-border">
+                        <span class="absolute top-3 left-3 bg-filter-side text-filter-sideTxt text-[11px] font-bold px-3 py-1.5 rounded-full z-10">Side Quests</span>
+                        <img src="assets/snoopy stand.png" alt="Christmas Thumbnail" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1513297887119-8686d080f4f9?auto=format&fit=crop&w=800&q=80'" class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105">
+                    </div>
+                    <div class="flex justify-between items-start gap-4">
+                        <div class="flex-1 min-w-0">
+                            <h3 class="font-bold text-[22px] tracking-tight text-ws-pureBlack leading-[1.2]">Charlie Brown Christmas</h3>
+                            <p class="text-ws-textMuted text-[15px] mt-2 truncate max-w-[220px]">McMaster Campus</p>
+                            <a href="https://www.instagram.com/reel/DR5byKxEbTS/?igsh=MW9kZWh4bXZuNTBmNg==" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="mt-3 inline-flex items-center gap-1.5 bg-ws-gold text-ws-pureBlack text-[12px] font-bold px-3.5 py-2 rounded-full hover:bg-ws-gold/90 transition-colors shadow-sm">
+                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                                Watch
+                            </a>
+                        </div>
+                        <div class="shrink-0 pt-1">
+                            <svg class="chevron w-6 h-6 text-ws-pureBlack transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path></svg>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-content px-6">
+                    <div class="accordion-inner pb-8 pt-2">
+                        <div class="text-[15px] text-ws-textMuted space-y-4 mb-2 leading-relaxed">
+                            <p>Recreated the scene from Charlie Brown Christmas with a psychiatric help booth built with roommates to cheer up the McMaster campus on the last day of classes.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- NAV43, Meditation, Martial Arts, Podcast, 3D Printing, Driveway Grad, Gifting, Trip Leader and Outdoor Educator -->
+            <div class="project-card reveal delay-100 group flex flex-col bg-ws-white border border-ws-border rounded-[32px] transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_12px_40px_-10px_rgba(0,0,0,0.08)]" data-category="work">
+                <div class="cursor-pointer p-6 flex-grow" onclick="toggleAccordion(this)">
+                    <div class="aspect-square bg-ws-bg rounded-[20px] overflow-hidden mb-6 relative border border-ws-border">
+                        <span class="absolute top-3 left-3 bg-filter-work text-filter-workTxt text-[11px] font-bold px-3 py-1.5 rounded-full z-10">Internships</span>
+                        <img src="assets/nav43_logo.jpg" alt="NAV43 Thumbnail" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80'" class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105">
+                    </div>
+                    <div class="flex justify-between items-start gap-4">
+                        <div>
+                            <h3 class="font-bold text-[22px] tracking-tight text-ws-pureBlack leading-[1.2]">Digital Marketing Intern</h3>
+                            <p class="text-ws-textMuted text-[15px] mt-2 truncate max-w-[220px]">@ NAV43</p>
+                        </div>
+                        <div class="shrink-0 pt-1">
+                            <svg class="chevron w-6 h-6 text-ws-pureBlack transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path></svg>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-content px-6">
+                    <div class="accordion-inner pb-8 pt-2">
+                        <div class="text-[15px] text-ws-textMuted space-y-4 mb-2 leading-relaxed">
+                            <p>Designed a content studio using latent diffusion models for AI-driven art and supported marketing strategy.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card reveal delay-200 group flex flex-col bg-ws-white border border-ws-border rounded-[32px] transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_12px_40px_-10px_rgba(0,0,0,0.08)]" data-category="side-quests">
+                <div class="cursor-pointer p-6 flex-grow" onclick="toggleAccordion(this)">
+                    <div class="aspect-square bg-ws-bg rounded-[20px] overflow-hidden mb-6 relative border border-ws-border">
+                        <span class="absolute top-3 left-3 bg-filter-side text-filter-sideTxt text-[11px] font-bold px-3 py-1.5 rounded-full z-10">Side Quests</span>
+                        <img src="assets/Meditation.JPG" alt="Meditation Thumbnail" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1528319725582-ddc096101511?auto=format&fit=crop&w=800&q=80'" class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105">
+                    </div>
+                    <div class="flex justify-between items-start gap-4">
+                        <div>
+                            <h3 class="font-bold text-[22px] tracking-tight text-ws-pureBlack leading-[1.2]">10-Day Silent Meditation</h3>
+                            <p class="text-ws-textMuted text-[15px] mt-2 truncate max-w-[220px]">Basana Retreat, Montebello</p>
+                        </div>
+                        <div class="shrink-0 pt-1">
+                            <svg class="chevron w-6 h-6 text-ws-pureBlack transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path></svg>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-content px-6">
+                    <div class="accordion-inner pb-8 pt-2">
+                        <div class="text-[15px] text-ws-textMuted space-y-4 mb-2 leading-relaxed">
+<p>I didn't talk for 10 days and meditated for over 100 hours, learning the practice of Vipassana meditation.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card reveal delay-300 group flex flex-col bg-ws-white border border-ws-border rounded-[32px] transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_12px_40px_-10px_rgba(0,0,0,0.08)]" data-category="side-quests">
+                <div class="cursor-pointer p-6 flex-grow" onclick="toggleAccordion(this)">
+                    <div class="aspect-square bg-ws-bg rounded-[20px] overflow-hidden mb-6 relative border border-ws-border">
+                        <span class="absolute top-3 left-3 bg-filter-side text-filter-sideTxt text-[11px] font-bold px-3 py-1.5 rounded-full z-10">Side Quests</span>
+                        <img src="assets/Black belt.jpg" alt="Martial Arts Thumbnail" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1555597673-b21d5c935865?auto=format&fit=crop&w=800&q=80'" class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105">
+                    </div>
+                    <div class="flex justify-between items-start gap-4">
+                        <div>
+                            <h3 class="font-bold text-[22px] tracking-tight text-ws-pureBlack leading-[1.2]">Second Degree Black Belt</h3>
+                            <p class="text-ws-textMuted text-[15px] mt-2 truncate max-w-[220px]">10+ Years of Training</p>
+                        </div>
+                        <div class="shrink-0 pt-1">
+                            <svg class="chevron w-6 h-6 text-ws-pureBlack transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path></svg>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-content px-6">
+                    <div class="accordion-inner pb-8 pt-2">
+                        <div class="text-[15px] text-ws-textMuted space-y-4 mb-2 leading-relaxed">
+                            <p>An achievement reached after over 10 years of consistent, disciplined martial arts training.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card reveal delay-100 group flex flex-col bg-ws-white border border-ws-border rounded-[32px] transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_12px_40px_-10px_rgba(0,0,0,0.08)]" data-category="side-quests">
+                <div class="cursor-pointer p-6 flex-grow" onclick="toggleAccordion(this)">
+                    <div class="aspect-square bg-ws-bg rounded-[20px] overflow-hidden mb-6 relative border border-ws-border">
+                        <span class="absolute top-3 left-3 bg-filter-side text-filter-sideTxt text-[11px] font-bold px-3 py-1.5 rounded-full z-10">Side Quests</span>
+                        <img src="assets/hot-takes-3.png" alt="Podcast Thumbnail" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1584680259424-d96b27e8a93?auto=format&fit=crop&w=800&q=80'" class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105">
+                    </div>
+                    <div class="flex justify-between items-start gap-4">
+                        <div>
+                            <h3 class="font-bold text-[22px] tracking-tight text-ws-pureBlack leading-[1.2]">Hot Takes, Cold Tanks</h3>
+                            <p class="text-ws-textMuted text-[15px] mt-2 truncate max-w-[220px]">Ice Bath Podcast</p>
+                        </div>
+                        <div class="shrink-0 pt-1">
+                            <svg class="chevron w-6 h-6 text-ws-pureBlack transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path></svg>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-content px-6">
+                    <div class="accordion-inner pb-8 pt-2">
+                        <div class="text-[15px] text-ws-textMuted space-y-4 mb-2 leading-relaxed">
+                            <p>This was a short, interview-style show where my roommate and I would interview our friends about their hot takes while sitting in ice baths. Unfortunately, due to the hydro costs, our landlord made us shut it down.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+<div class="project-card reveal delay-300 group flex flex-col bg-ws-white border border-ws-border rounded-[32px] transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_12px_40px_-10px_rgba(0,0,0,0.08)]" data-category="side-quests">
+                <div class="cursor-pointer p-6 flex-grow" onclick="toggleAccordion(this)">
+                    <div class="aspect-square bg-ws-bg rounded-[20px] overflow-hidden mb-6 relative border border-ws-border">
+                        <span class="absolute top-3 left-3 bg-filter-side text-filter-sideTxt text-[11px] font-bold px-3 py-1.5 rounded-full z-10">Side Quests</span>
+                        <a href="https://www.canva.com/design/DAGyZOrnLic/TyvYUquIfwmWGhDjhQlJgA/view?utm_content=DAGyZOrnLic&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h605f4ed8f1" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="absolute top-3 right-3 z-10 bg-ws-pureBlack/80 hover:bg-ws-pureBlack text-ws-white text-[11px] font-bold px-3 py-1.5 rounded-full flex items-center gap-1.5 transition-colors">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                            View
+                        </a>
+                        <img src="assets/3d printing.JPG" alt="3D Printing Thumbnail" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1630403167106-a05d8481ff23?auto=format&fit=crop&w=800&q=80'" class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105">
+                    </div>
+                    <div class="flex justify-between items-start gap-4">
+                        <div>
+                            <h3 class="font-bold text-[22px] tracking-tight text-ws-pureBlack leading-[1.2]">3D Printing and Design</h3>
+                            <p class="text-ws-textMuted text-[15px] mt-2 truncate max-w-[220px]">CAD & Fabrication</p>
+                        </div>
+                        <div class="shrink-0 pt-1">
+                            <svg class="chevron w-6 h-6 text-ws-pureBlack transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path></svg>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-content px-6">
+                    <div class="accordion-inner pb-8 pt-2">
+                        <div class="text-[15px] text-ws-textMuted space-y-4 mb-2 leading-relaxed">
+                            <p>Over the past few years I have been exploring 3D printing and design. I was hired to make movie props and design components using Fusion 360 and other CAD tools.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card reveal delay-100 group flex flex-col bg-ws-white border border-ws-border rounded-[32px] transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_12px_40px_-10px_rgba(0,0,0,0.08)]" data-category="side-quests">
+                <div class="cursor-pointer p-6 flex-grow" onclick="toggleAccordion(this)">
+                    <div class="aspect-square bg-ws-bg rounded-[20px] overflow-hidden mb-6 relative border border-ws-border">
+                        <span class="absolute top-3 left-3 bg-filter-side text-filter-sideTxt text-[11px] font-bold px-3 py-1.5 rounded-full z-10">Side Quests</span>
+                        <img src="assets/Driveway grad.JPG" alt="Graduation Thumbnail" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1523580494863-6f30b532ce39?auto=format&fit=crop&w=800&q=80'" class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105">
+                    </div>
+                    <div class="flex justify-between items-start gap-4">
+                        <div>
+                            <h3 class="font-bold text-[22px] tracking-tight text-ws-pureBlack leading-[1.2]">Driveway Grad</h3>
+                            <p class="text-ws-textMuted text-[15px] mt-2 truncate max-w-[220px]">Community Event</p>
+                        </div>
+                        <div class="shrink-0 pt-1">
+                            <svg class="chevron w-6 h-6 text-ws-pureBlack transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path></svg>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-content px-6">
+                    <div class="accordion-inner pb-8 pt-2">
+                        <div class="text-[15px] text-ws-textMuted space-y-4 mb-2 leading-relaxed">
+                            <p>This is the only extracurricular I show from my high school days, but it means a lot to me. In 2020 we lost our grad, so I decided to create our own—hosting over 154 graduation ceremonies on people's driveways.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card reveal delay-200 group flex flex-col bg-ws-white border border-ws-border rounded-[32px] transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_12px_40px_-10px_rgba(0,0,0,0.08)]" data-category="side-quests">
+                <div class="cursor-pointer p-6 flex-grow" onclick="toggleAccordion(this)">
+                    <div class="aspect-square bg-ws-bg rounded-[20px] overflow-hidden mb-6 relative border border-ws-border">
+                        <span class="absolute top-3 left-3 bg-filter-side text-filter-sideTxt text-[11px] font-bold px-3 py-1.5 rounded-full z-10">Side Quests</span>
+                        <img src="assets/Gifting.jpg" alt="Gifting Thumbnail" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&w=800&q=80'" class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105">
+                    </div>
+                    <div class="flex justify-between items-start gap-4">
+                        <div>
+                            <h3 class="font-bold text-[22px] tracking-tight text-ws-pureBlack leading-[1.2]">Custom Gifting Tradition</h3>
+                            <p class="text-ws-textMuted text-[15px] mt-2 truncate max-w-[220px]">Personal Project</p>
+                        </div>
+                        <div class="shrink-0 pt-1">
+                            <svg class="chevron w-6 h-6 text-ws-pureBlack transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path></svg>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-content px-6">
+                    <div class="accordion-inner pb-8 pt-2">
+                        <div class="text-[15px] text-ws-textMuted space-y-4 mb-2 leading-relaxed">
+                            <p>An ongoing personal project focused on craftsmanship and creating deeply meaningful, personalized gifts for friends and family. To keep up with my love of paddling, I also craft custom-made paddles with different designs as presents for friends and mentors, and have been hired for corporate gifting.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card reveal delay-100 group flex flex-col bg-ws-white border border-ws-border rounded-[32px] transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_12px_40px_-10px_rgba(0,0,0,0.08)]" data-category="side-quests">
+                <div class="cursor-pointer p-6 flex-grow" onclick="toggleAccordion(this)">
+                    <div class="aspect-square bg-ws-bg rounded-[20px] overflow-hidden mb-6 relative border border-ws-border">
+                        <span class="absolute top-3 left-3 bg-filter-side text-filter-sideTxt text-[11px] font-bold px-3 py-1.5 rounded-full z-10">Side Quests</span>
+                        <img src="assets/Outdoor guide.JPG" alt="Trip Leader and Outdoor Educator Thumbnail" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1511497584784-a134b4c19561?auto=format&fit=crop&w=800&q=80'" class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105">
+                    </div>
+                    <div class="flex justify-between items-start gap-4">
+                        <div>
+                            <h3 class="font-bold text-[22px] tracking-tight text-ws-pureBlack leading-[1.2]">Trip Leader and Outdoor Educator</h3>
+                            <p class="text-ws-textMuted text-[15px] mt-2 truncate max-w-[220px]">@ Tamakwa and Gould Lake</p>
+                        </div>
+                        <div class="shrink-0 pt-1">
+                            <svg class="chevron w-6 h-6 text-ws-pureBlack transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path></svg>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-content px-6">
+                    <div class="accordion-inner pb-8 pt-2">
+                        <div class="text-[15px] text-ws-textMuted space-y-4 mb-2 leading-relaxed">
+                            <p>Guided students on intensive 2–4 week backcountry trips with a curriculum centered on outdoor leadership at both Tamakwa and Gould Lake.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Extracurricular: MARS, JDCC, ENGCOMM, MAC Formula, GDSC, Greensuits -->
+            <div class="project-card reveal delay-200 group flex flex-col bg-ws-white border border-ws-border rounded-[32px] transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_12px_40px_-10px_rgba(0,0,0,0.08)]" data-category="extracurricular">
+                <div class="cursor-pointer p-6 flex-grow" onclick="toggleAccordion(this)">
+                    <div class="aspect-square bg-ws-bg rounded-[20px] overflow-hidden mb-6 relative border border-ws-border">
+                        <span class="absolute top-3 left-3 bg-filter-extra text-filter-extraTxt text-[11px] font-bold px-3 py-1.5 rounded-full z-10">Extracurricular</span>
+                        <img src="assets/mars-main.png" alt="MARS Apprentice Thumbnail" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1507679622114-c6c7b949bcbf?auto=format&fit=crop&w=800&q=80'" class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105">
+                    </div>
+                    <div class="flex justify-between items-start gap-4">
+                        <div>
+                            <h3 class="font-bold text-[22px] tracking-tight text-ws-pureBlack leading-[1.2]">Chair</h3>
+                            <p class="text-ws-textMuted text-[15px] mt-2 truncate max-w-[220px]">@ MARS Apprentice</p>
+                        </div>
+                        <div class="shrink-0 pt-1">
+                            <svg class="chevron w-6 h-6 text-ws-pureBlack transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path></svg>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-content px-6">
+                    <div class="accordion-inner pb-8 pt-2">
+                        <div class="text-[15px] text-ws-textMuted space-y-4 mb-2 leading-relaxed">
+<p>Brought back to life a historic business competition at McMaster University—but if you're reading this, you've probably already watched the video above.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card reveal delay-300 group flex flex-col bg-ws-white border border-ws-border rounded-[32px] transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_12px_40px_-10px_rgba(0,0,0,0.08)]" data-category="extracurricular">
+                <div class="cursor-pointer p-6 flex-grow" onclick="toggleAccordion(this)">
+                    <div class="aspect-square bg-ws-bg rounded-[20px] overflow-hidden mb-6 relative border border-ws-border">
+                        <span class="absolute top-3 left-3 bg-filter-extra text-filter-extraTxt text-[11px] font-bold px-3 py-1.5 rounded-full z-10">Extracurricular</span>
+                        <img src="assets/JDCC.JPG" alt="JDCC Thumbnail" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=800&q=80'" class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105">
+                    </div>
+                    <div class="flex justify-between items-start gap-4">
+                        <div>
+                            <h3 class="font-bold text-[22px] tracking-tight text-ws-pureBlack leading-[1.2]">Digital Strategy Consultant</h3>
+                            <p class="text-ws-textMuted text-[15px] mt-2 truncate max-w-[220px]">@ JDCC DeGroote</p>
+                        </div>
+                        <div class="shrink-0 pt-1">
+                            <svg class="chevron w-6 h-6 text-ws-pureBlack transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path></svg>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-content px-6">
+                    <div class="accordion-inner pb-8 pt-2">
+                        <div class="flex flex-wrap gap-2 mb-5">
+                            <span class="bg-ws-bg text-ws-pureBlack px-3 py-1.5 rounded-full text-[13px] font-semibold border border-ws-border">🥇 1st Place School-wide</span>
+                        </div>
+                        <div class="text-[15px] text-ws-textMuted space-y-4 mb-2 leading-relaxed">
+                            <p>Achieved first place in the school-wide competition and developed the "TIPS" methodology specifically for technical consulting frameworks.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card reveal delay-100 group flex flex-col bg-ws-white border border-ws-border rounded-[32px] transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_12px_40px_-10px_rgba(0,0,0,0.08)]" data-category="extracurricular">
+                <div class="cursor-pointer p-6 flex-grow" onclick="toggleAccordion(this)">
+                    <div class="aspect-square bg-ws-bg rounded-[20px] overflow-hidden mb-6 relative border border-ws-border">
+                        <span class="absolute top-3 left-3 bg-filter-extra text-filter-extraTxt text-[11px] font-bold px-3 py-1.5 rounded-full z-10">Extracurricular</span>
+                        <img src="assets/Engcomm.jpg" alt="ENGCOMM Thumbnail" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1515169061864-578fec861981?auto=format&fit=crop&w=800&q=80'" class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105">
+                    </div>
+                    <div class="flex justify-between items-start gap-4">
+                        <div>
+                            <h3 class="font-bold text-[22px] tracking-tight text-ws-pureBlack leading-[1.2]">Co-Chair</h3>
+                            <p class="text-ws-textMuted text-[15px] mt-2 truncate max-w-[220px]">@ ENGCOMM</p>
+                        </div>
+                        <div class="shrink-0 pt-1">
+                            <svg class="chevron w-6 h-6 text-ws-pureBlack transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path></svg>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-content px-6">
+                    <div class="accordion-inner pb-8 pt-2">
+                        <div class="text-[15px] text-ws-textMuted space-y-4 mb-2 leading-relaxed">
+                            <p>Oversaw team hiring processes and consistently executed weekly 6 and 12-hour intensive case challenges addressing real-world industry problems.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card reveal delay-200 group flex flex-col bg-ws-white border border-ws-border rounded-[32px] transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_12px_40px_-10px_rgba(0,0,0,0.08)]" data-category="extracurricular">
+                <div class="cursor-pointer p-6 flex-grow" onclick="toggleAccordion(this)">
+                    <div class="aspect-square bg-ws-bg rounded-[20px] overflow-hidden mb-6 relative border border-ws-border">
+                        <span class="absolute top-3 left-3 bg-filter-extra text-filter-extraTxt text-[11px] font-bold px-3 py-1.5 rounded-full z-10">Extracurricular</span>
+                        <img src="assets/mcmaster formula.png" alt="MAC Formula Thumbnail" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1561553313-7f7227e77b47?auto=format&fit=crop&w=800&q=80'" class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105">
+                    </div>
+                    <div class="flex justify-between items-start gap-4">
+                        <div>
+                            <h3 class="font-bold text-[22px] tracking-tight text-ws-pureBlack leading-[1.2]">Business Member</h3>
+                            <p class="text-ws-textMuted text-[15px] mt-2 truncate max-w-[220px]">@ MAC Formula Electric</p>
+                        </div>
+                        <div class="shrink-0 pt-1">
+                            <svg class="chevron w-6 h-6 text-ws-pureBlack transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path></svg>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-content px-6">
+                    <div class="accordion-inner pb-8 pt-2">
+                        <div class="text-[15px] text-ws-textMuted space-y-4 mb-2 leading-relaxed">
+                            <p>Managed critical business efforts including agile project management and securing sponsorships; successfully pitched a new hydrogen fuel cell solution.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card reveal delay-300 group flex flex-col bg-ws-white border border-ws-border rounded-[32px] transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_12px_40px_-10px_rgba(0,0,0,0.08)]" data-category="extracurricular">
+                <div class="cursor-pointer p-6 flex-grow" onclick="toggleAccordion(this)">
+                    <div class="aspect-square bg-ws-bg rounded-[20px] overflow-hidden mb-6 relative border border-ws-border">
+                        <span class="absolute top-3 left-3 bg-filter-extra text-filter-extraTxt text-[11px] font-bold px-3 py-1.5 rounded-full z-10">Extracurricular</span>
+                        <img src="assets/Google Developer Team.png" alt="GDSC Thumbnail" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1573164713619-24cb711aeb26?auto=format&fit=crop&w=800&q=80'" class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105">
+                    </div>
+                    <div class="flex justify-between items-start gap-4">
+                        <div>
+                            <h3 class="font-bold text-[22px] tracking-tight text-ws-pureBlack leading-[1.2]">Project Manager & Designer</h3>
+                            <p class="text-ws-textMuted text-[15px] mt-2 truncate max-w-[220px]">@ GDSC</p>
+                        </div>
+                        <div class="shrink-0 pt-1">
+                            <svg class="chevron w-6 h-6 text-ws-pureBlack transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path></svg>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-content px-6">
+                    <div class="accordion-inner pb-8 pt-2">
+                        <div class="text-[15px] text-ws-textMuted space-y-4 mb-2 leading-relaxed">
+                            <p>Managed a team of four software engineers for the Google Developer Student Clubs in the development of housing and web apps utilizing Agile frameworks.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card reveal delay-100 group flex flex-col bg-ws-white border border-ws-border rounded-[32px] transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_12px_40px_-10px_rgba(0,0,0,0.08)]" data-category="extracurricular">
+                <div class="cursor-pointer p-6 flex-grow" onclick="toggleAccordion(this)">
+                    <div class="aspect-square bg-ws-bg rounded-[20px] overflow-hidden mb-6 relative border border-ws-border">
+                        <span class="absolute top-3 left-3 bg-filter-extra text-filter-extraTxt text-[11px] font-bold px-3 py-1.5 rounded-full z-10">Extracurricular</span>
+                        <img src="assets/Greensuits.png" alt="Greensuits Thumbnail" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1529070538774-1843cb166537?auto=format&fit=crop&w=800&q=80'" class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105">
+                    </div>
+                    <div class="flex justify-between items-start gap-4">
+                        <div>
+                            <h3 class="font-bold text-[22px] tracking-tight text-ws-pureBlack leading-[1.2]">Greensuits</h3>
+                            <p class="text-ws-textMuted text-[15px] mt-2 truncate max-w-[220px]">Student Organization</p>
+                        </div>
+                        <div class="shrink-0 pt-1">
+                            <svg class="chevron w-6 h-6 text-ws-pureBlack transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path></svg>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-content px-6">
+                    <div class="accordion-inner pb-8 pt-2">
+                        <div class="text-[15px] text-ws-textMuted space-y-4 mb-2 leading-relaxed">
+                            <p>A high-energy student organization at McMaster, serving as passionate faculty representatives and orientation leaders for incoming students.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Awards: Cansbridge, Duke of Edinburgh, Dean's List -->
+            <div class="project-card reveal delay-200 group flex flex-col bg-ws-white border border-ws-border rounded-[32px] transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_12px_40px_-10px_rgba(0,0,0,0.08)]" data-category="awards">
+                <div class="cursor-pointer p-6 flex-grow" onclick="toggleAccordion(this)">
+                    <div class="aspect-square bg-ws-bg rounded-[20px] overflow-hidden mb-6 relative border border-ws-border">
+                        <span class="absolute top-3 left-3 bg-filter-awards text-filter-awardsTxt text-[11px] font-bold px-3 py-1.5 rounded-full z-10">Awards</span>
+                        <img src="assets/Cansbridge.png" alt="Cansbridge Thumbnail" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1522770179533-24471fcdba45?auto=format&fit=crop&w=800&q=80'" class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105">
+                    </div>
+                    <div class="flex justify-between items-start gap-4">
+                        <div>
+                            <h3 class="font-bold text-[22px] tracking-tight text-ws-pureBlack leading-[1.2]">Cansbridge Fellowship</h3>
+                            <p class="text-ws-textMuted text-[15px] mt-2 truncate max-w-[220px]">Internship in Asia</p>
+                        </div>
+                        <div class="shrink-0 pt-1">
+                            <svg class="chevron w-6 h-6 text-ws-pureBlack transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path></svg>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-content px-6">
+                    <div class="accordion-inner pb-8 pt-2">
+                        <div class="text-[15px] text-ws-textMuted space-y-4 mb-2 leading-relaxed">
+                            <p>A fellowship that accepts 0.15% of applicants (so not sure why they said yes to my face lol), awarded to high-achieving, ambitious students and including an immersive professional internship in Asia.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card reveal delay-300 group flex flex-col bg-ws-white border border-ws-border rounded-[32px] transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_12px_40px_-10px_rgba(0,0,0,0.08)]" data-category="awards">
+                <div class="cursor-pointer p-6 flex-grow" onclick="toggleAccordion(this)">
+                    <div class="aspect-square bg-ws-bg rounded-[20px] overflow-hidden mb-6 relative border border-ws-border">
+                        <span class="absolute top-3 left-3 bg-filter-awards text-filter-awardsTxt text-[11px] font-bold px-3 py-1.5 rounded-full z-10">Awards</span>
+                        <img src="assets/Gold duke of edinburgh.jpg" alt="Duke of Edinburgh Thumbnail" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1494809610406-38b820a454c2?auto=format&fit=crop&w=800&q=80'" class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105">
+                    </div>
+                    <div class="flex justify-between items-start gap-4">
+                        <div>
+                            <h3 class="font-bold text-[22px] tracking-tight text-ws-pureBlack leading-[1.2]">Gold Duke of Edinburgh</h3>
+                            <p class="text-ws-textMuted text-[15px] mt-2 truncate max-w-[220px]">Prestigious Youth Award</p>
+                        </div>
+                        <div class="shrink-0 pt-1">
+                            <svg class="chevron w-6 h-6 text-ws-pureBlack transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path></svg>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-content px-6">
+                    <div class="accordion-inner pb-8 pt-2">
+                        <div class="text-[15px] text-ws-textMuted space-y-4 mb-2 leading-relaxed">
+                            <p>Completed this internationally recognized program requiring extensive community service, physical activity, skills development, and an adventurous journey.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card reveal delay-100 group flex flex-col bg-ws-white border border-ws-border rounded-[32px] transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_12px_40px_-10px_rgba(0,0,0,0.08)]" data-category="awards">
+                <div class="cursor-pointer p-6 flex-grow" onclick="toggleAccordion(this)">
+                    <div class="aspect-square bg-ws-bg rounded-[20px] overflow-hidden mb-6 relative border border-ws-border">
+                        <span class="absolute top-3 left-3 bg-filter-awards text-filter-awardsTxt text-[11px] font-bold px-3 py-1.5 rounded-full z-10">Awards</span>
+                        <img src="assets/Deans Honor List.jpg" alt="Dean's List Thumbnail" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1523240795-9ff0c9dd20b4?auto=format&fit=crop&w=800&q=80'" class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105">
+                    </div>
+                    <div class="flex justify-between items-start gap-4">
+                        <div>
+                            <h3 class="font-bold text-[22px] tracking-tight text-ws-pureBlack leading-[1.2]">Dean's Honor List</h3>
+                            <p class="text-ws-textMuted text-[15px] mt-2 truncate max-w-[220px]">Academic Excellence</p>
+                        </div>
+                        <div class="shrink-0 pt-1">
+                            <svg class="chevron w-6 h-6 text-ws-pureBlack transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path></svg>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-content px-6">
+                    <div class="accordion-inner pb-8 pt-2">
+                        <div class="text-[15px] text-ws-textMuted space-y-4 mb-2 leading-relaxed">
+                            <p>Official recognition awarded for maintaining exceptionally high academic standing throughout my university tenure.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Prominent AI Assistance Section -->
+        <div id="ai-section" class="reveal delay-200 mt-32 relative overflow-hidden bg-[#FAFAFC] rounded-[40px] p-10 md:p-16 flex flex-col md:flex-row items-start md:items-center justify-between gap-12 border border-ws-border shadow-sm">
+            
+            <div id="blob-wrapper-1" class="absolute inset-0 pointer-events-none transition-transform duration-700 ease-out z-0">
+                <div class="absolute -bottom-[10%] -left-[10%] w-[50%] h-[80%] bg-[#5E6AD2] rounded-full mix-blend-multiply filter blur-[80px] opacity-40 animate-blob-left pointer-events-none"></div>
+            </div>
+            <div id="blob-wrapper-2" class="absolute inset-0 pointer-events-none transition-transform duration-1000 ease-out z-0">
+                <div class="absolute -top-[10%] -right-[10%] w-[60%] h-[70%] bg-[#F094D6] rounded-full mix-blend-multiply filter blur-[80px] opacity-40 animate-blob-right pointer-events-none"></div>
+            </div>
+
+            <div class="relative z-10 max-w-md">
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-ws-pureBlack/5 text-ws-pureBlack text-[11px] font-bold tracking-widest uppercase mb-6 border border-ws-pureBlack/10 shadow-sm backdrop-blur-sm">
+                    <svg class="w-4 h-4 text-ws-pureBlack" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    Behind the Scenes
+                </div>
+                <h3 class="font-serif text-4xl md:text-5xl font-medium tracking-tight mb-5 text-ws-pureBlack">Built with AI</h3>
+            </div>
+            
+            <div class="relative z-10 w-full md:w-auto grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-5 flex-grow max-w-2xl">
+                <div class="bg-white/60 backdrop-blur-xl rounded-[24px] p-8 border border-white shadow-[0_8px_30px_rgb(0,0,0,0.06)] flex flex-col justify-between">
+                    <div class="mb-8 h-12 w-12 bg-ws-pureBlack/5 rounded-full flex items-center justify-center border border-ws-pureBlack/5 shadow-sm">
+                        <svg class="w-6 h-6 text-ws-pureBlack" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                            <path d="M12 3v18M17 7v10M7 7v10M22 10v4M2 10v4"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <div class="text-[#808080] text-[11px] font-bold uppercase tracking-wider mb-2">Prompting & Voice</div>
+                        <div class="font-bold text-[22px] tracking-tight text-ws-pureBlack">Wispr Flow</div>
+                    </div>
+                </div>
+                <div class="bg-white/60 backdrop-blur-xl rounded-[24px] p-8 border border-white shadow-[0_8px_30px_rgb(0,0,0,0.06)] flex flex-col justify-between">
+                    <div class="mb-8 flex items-center gap-3">
+                        <div class="h-12 w-12 bg-ws-pureBlack/5 rounded-full flex items-center justify-center border border-ws-pureBlack/5 shadow-sm shrink-0 overflow-hidden p-2">
+                            <img src="assets/cursor-icon.png" alt="Cursor" class="w-full h-full object-contain mix-blend-multiply" />
+                        </div>
+                        <div class="h-12 w-12 bg-ws-pureBlack/5 rounded-full flex items-center justify-center border border-ws-pureBlack/5 shadow-sm shrink-0 overflow-hidden p-2">
+                            <img src="assets/claude-icon.png" alt="Claude Code" class="w-full h-full object-contain mix-blend-multiply" />
+                        </div>
+                    </div>
+                    <div>
+                        <div class="text-[#808080] text-[11px] font-bold uppercase tracking-wider mb-2">Coding</div>
+                        <div class="font-bold text-[22px] tracking-tight text-ws-pureBlack">Cursor & Claude Code</div>
+                    </div>
+                </div>
+                <div class="bg-white/60 backdrop-blur-xl rounded-[24px] p-8 border border-white shadow-[0_8px_30px_rgb(0,0,0,0.06)] flex flex-col justify-between">
+                    <div class="mb-8 h-12 w-12 bg-ws-pureBlack/5 rounded-full flex items-center justify-center border border-ws-pureBlack/5 shadow-sm overflow-hidden p-2">
+                        <img src="assets/artlist-icon.png" alt="Artlist.io" class="w-full h-full object-contain mix-blend-multiply" />
+                    </div>
+                    <div>
+                        <div class="text-[#808080] text-[11px] font-bold uppercase tracking-wider mb-2">Music & Sound</div>
+                        <div class="font-bold text-[22px] tracking-tight text-ws-pureBlack">Artlist.io</div>
+                    </div>
+                </div>
+                <div class="bg-white/60 backdrop-blur-xl rounded-[24px] p-8 border border-white shadow-[0_8px_30px_rgb(0,0,0,0.06)] flex flex-col justify-between">
+                    <div class="mb-8 h-12 w-12 bg-ws-pureBlack/5 rounded-full flex items-center justify-center border border-ws-pureBlack/5 shadow-sm">
+                        <svg class="w-6 h-6 text-[#4285F4]" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2.25c0 4.832-4.168 9-9 9 4.832 0 9 4.168 9 9 0-4.832 4.168-9 9-9-4.832 0-9-4.168-9-9z"/>
+                            <path d="M19.5 3.75c0 2.416-2.084 4.5-4.5 4.5 2.416 0 4.5 2.084 4.5 4.5 0-2.416 2.084-4.5 4.5-4.5-2.416 0-4.5-2.084-4.5-4.5z"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <div class="text-[#808080] text-[11px] font-bold uppercase tracking-wider mb-2">Content Strategy</div>
+                        <div class="font-bold text-[22px] tracking-tight text-ws-pureBlack">Google Gemini</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        function setTimeBasedGreeting() {
+            const hour = new Date().getHours();
+            const greetingElement = document.getElementById('dynamic-greeting');
+            let timeOfDay = (hour >= 5 && hour < 12) ? 'morning' : (hour >= 12 && hour < 17) ? 'afternoon' : 'evening';
+            greetingElement.innerText = 'Good ' + timeOfDay + ' Wealthsimple, I\'m Aaron \uD83D\uDC4B';
+        }
+
+        function toggleAccordion(triggerElement) {
+            const card = triggerElement.closest('.project-card');
+            const content = card.querySelector('.accordion-content');
+            const chevron = card.querySelector('.chevron');
+            const isOpen = content.classList.contains('open');
+            content.classList.toggle('open', !isOpen);
+            chevron.style.transform = isOpen ? 'rotate(0deg)' : 'rotate(180deg)';
+        }
+
+        function filterSelection(category, btnElement) {
+            if (typeof hideFilterTooltip === 'function') hideFilterTooltip();
+
+            var buttons = document.querySelectorAll('.filter-btn');
+            buttons.forEach(function(btn) {
+                btn.classList.remove('bg-ws-pureBlack', 'text-ws-white');
+                btn.classList.add('bg-transparent', 'text-ws-textMuted');
+            });
+            btnElement.classList.remove('bg-transparent', 'text-ws-textMuted');
+            btnElement.classList.add('bg-ws-pureBlack', 'text-ws-white');
+
+            var cards = document.querySelectorAll('.project-card');
+            cards.forEach(function(card) {
+                var shouldShow = category === 'all' || card.getAttribute('data-category') === category;
+                card.style.display = shouldShow ? 'flex' : 'none';
+                if (shouldShow) {
+                    card.animate([{ opacity: 0, transform: 'scale(0.98)' }, { opacity: 1, transform: 'scale(1)' }], { duration: 300, easing: 'ease-out', fill: 'forwards' });
+                } else {
+                    var c = card.querySelector('.accordion-content');
+                    var ch = card.querySelector('.chevron');
+                    if (c) c.classList.remove('open');
+                    if (ch) ch.style.transform = 'rotate(0deg)';
+                }
+            });
+        }
+
+        var aiSection = document.getElementById('ai-section');
+        var blobWrapper1 = document.getElementById('blob-wrapper-1');
+        var blobWrapper2 = document.getElementById('blob-wrapper-2');
+        if (aiSection && blobWrapper1 && blobWrapper2) {
+            aiSection.addEventListener('mousemove', function(e) {
+                var rect = aiSection.getBoundingClientRect();
+                var x = e.clientX - rect.left;
+                var y = e.clientY - rect.top;
+                var centerX = rect.width / 2;
+                var centerY = rect.height / 2;
+                var percentX = (x - centerX) / centerX;
+                var percentY = (y - centerY) / centerY;
+                blobWrapper1.style.transform = 'translate(' + (percentX * 80) + 'px, ' + (percentY * 80) + 'px)';
+                blobWrapper2.style.transform = 'translate(' + (percentX * -60) + 'px, ' + (percentY * -60) + 'px)';
+            });
+            aiSection.addEventListener('mouseleave', function() {
+                blobWrapper1.style.transform = 'translate(0px, 0px)';
+                blobWrapper2.style.transform = 'translate(0px, 0px)';
+            });
+        }
+
+        var observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
+        var observer = new IntersectionObserver(function(entries, obs) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) { entry.target.classList.add('active'); obs.unobserve(entry.target); }
+            });
+        }, observerOptions);
+        document.querySelectorAll('.reveal').forEach(function(el) { observer.observe(el); });
+
+        var filterWrapper = document.getElementById('filter-wrapper');
+        var tooltip = document.getElementById('filter-tooltip');
+        var filterTooltipTimeout = null;
+        var filterTooltipSettleTimeout = null;
+        var filterTooltipAlreadyShown = false;
+
+        function hideFilterTooltip() {
+            if (tooltip) {
+                tooltip.classList.remove('opacity-100', 'translate-y-0');
+                tooltip.classList.add('opacity-0', 'translate-y-4');
+            }
+            if (filterTooltipTimeout) {
+                clearTimeout(filterTooltipTimeout);
+                filterTooltipTimeout = null;
+            }
+            if (filterTooltipSettleTimeout) {
+                clearTimeout(filterTooltipSettleTimeout);
+                filterTooltipSettleTimeout = null;
+            }
+        }
+
+        function showFilterTooltip() {
+            if (filterTooltipAlreadyShown) return;
+            filterTooltipAlreadyShown = true;
+            if (tooltip) {
+                tooltip.classList.remove('opacity-0', 'translate-y-4');
+                tooltip.classList.add('opacity-100', 'translate-y-0');
+            }
+        }
+
+        var filterObserver = new IntersectionObserver(function(entries, obs) {
+            entries.forEach(function(entry) {
+                if (filterTooltipAlreadyShown) return;
+                if (entry.isIntersecting) {
+                    if (filterTooltipSettleTimeout) return;
+                    filterTooltipSettleTimeout = setTimeout(function() {
+                        filterTooltipSettleTimeout = null;
+                        obs.unobserve(entry.target);
+                        showFilterTooltip();
+                    }, 300);
+                } else {
+                    if (filterTooltipSettleTimeout) {
+                        clearTimeout(filterTooltipSettleTimeout);
+                        filterTooltipSettleTimeout = null;
+                    }
+                }
+            });
+        }, { threshold: 0.2 });
+        if (filterWrapper) filterObserver.observe(filterWrapper);
+
+        document.addEventListener('DOMContentLoaded', setTimeBasedGreeting);
+    </script>
+</body>
+</html>
